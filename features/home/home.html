@@ -6,8 +6,8 @@
             <button type="button" class="btn btn-success" ng-click="home.filterTasks('mine')">Moje zadania</button>
         </ul>
         <p class="navbar-text navbar-right">
-            <button type="button" class="btn btn-default navbar-btn" ng-click=home.setEmail(email)>Zaloguj</button>
-            <input ng-model="email" />
+            <button type="button" class="btn btn-default navbar-btn" ng-click=home.setEmail(email)>{{ home.logged }}</button>
+            <input ng-show="home.email == '' " ng-model="email" />
         </p>
     </div>
 </nav>
@@ -25,7 +25,7 @@
 <br>
 
 <div style="display: table;">
-    <div style="display: table-cell;" align='left'>
+    <div style="display: table-cell; width:500px;" align='left'>
         <ul>
             <p>To do <span class="badge">4</span></p>
             <div class="well" ng-repeat="task in home.tasks | filter:home.filter | filter: { done : false }">
@@ -37,7 +37,7 @@
                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     </button>
                     <button class="btn btn-success btn-xs" ng-click="home.setStatus(task, 'done')">
-                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
                     </button>
                     </span>
                 </div>
@@ -45,7 +45,7 @@
         </ul>
     </div>
 
-    <div style="display: table-cell;" align='left'>
+    <div style="display: table-cell; width:500px;" align='left'>
         <ul>
             <p>Done <span class="badge">4</span></p>
             <div class="well" ng-repeat="task in home.tasks | filter:home.filter | filter: { done : true }">
@@ -56,8 +56,8 @@
                         <button class="btn btn-danger btn-xs" ng-click="home.removeTask(task)">
                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     </button>
-                    <button class="btn btn-success btn-xs" ng-click="home.setStatus(task, 'todo')">
-                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    <button class="btn btn-warning btn-xs" ng-click="home.setStatus(task, 'todo')">
+                        <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
                     </button>
                     </span>
                 </div>

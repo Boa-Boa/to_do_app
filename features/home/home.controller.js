@@ -3,6 +3,7 @@ export default class HomeController {
     let ref = new Firebase("https://blinding-fire-6626.firebaseio.com/");
     this.tasks = $firebaseArray(ref);
     
+    this.logged = "Zaloguj";
     this.email = "";
     this.filter = "";
   }
@@ -40,7 +41,14 @@ export default class HomeController {
   }
 
   setEmail(email) {
-    this.email = email;
+    if(this.logged == "Zaloguj") {
+      this.email = email;
+      this.logged = "Wyloguj";
+    }
+    else if(this.logged == "Wyloguj") {
+      this.email = "";
+      this.logged = "Zaloguj";
+    }
   }
 
   removeTask(task) {
