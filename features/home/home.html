@@ -1,0 +1,67 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <p><a class="navbar-brand">To do app</a></p>
+        <ul class="nav navbar-nav">
+            <button type="button" class="btn btn-primary" ng-click="home.filterTasks('all')">Zadania</button>
+            <button type="button" class="btn btn-success" ng-click="home.filterTasks('mine')">Moje zadania</button>
+        </ul>
+        <p class="navbar-text navbar-right">
+            <button type="button" class="btn btn-default navbar-btn" ng-click=home.setEmail(email)>Zaloguj</button>
+            <input ng-model="email" />
+        </p>
+    </div>
+</nav>
+
+
+<br>
+<br>
+<br>
+<br>
+
+<input ng-model="task" />
+<button type="submit" class="btn btn-success" ng-click=home.addTask(task)>Dodaj zadanie</button>
+
+<br>
+<br>
+
+<div style="display: table;">
+    <div style="display: table-cell;" align='left'>
+        <ul>
+            <p>To do <span class="badge">4</span></p>
+            <div class="well" ng-repeat="task in home.tasks | filter:home.filter | filter: { done : false }">
+                <h3>{{ task.name }}</h3>
+                <p>{{ task.mail }}</p>
+                <div>
+                    <span class="pull-right">
+                        <button class="btn btn-danger btn-xs" ng-click="home.removeTask(task)">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </button>
+                    <button class="btn btn-success btn-xs" ng-click="home.setStatus(task, 'done')">
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    </button>
+                    </span>
+                </div>
+            </div>
+        </ul>
+    </div>
+
+    <div style="display: table-cell;" align='left'>
+        <ul>
+            <p>Done <span class="badge">4</span></p>
+            <div class="well" ng-repeat="task in home.tasks | filter:home.filter | filter: { done : true }">
+                <h3>{{ task.name }}</h3>
+                <p>{{ task.mail }}</p>
+                <div>
+                    <span class="pull-right">
+                        <button class="btn btn-danger btn-xs" ng-click="home.removeTask(task)">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </button>
+                    <button class="btn btn-success btn-xs" ng-click="home.setStatus(task, 'todo')">
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    </button>
+                    </span>
+                </div>
+            </div>
+        </ul>
+    </div>
+</div>
