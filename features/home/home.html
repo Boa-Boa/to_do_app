@@ -6,20 +6,21 @@
             <button type="button" class="btn btn-success" ng-click="home.filterTasks('mine')">Moje zadania</button>
         </ul>
         <p class="navbar-text navbar-right">
-            <button type="button" class="btn btn-default navbar-btn" ng-click=home.setEmail(email)>{{ home.logged }}</button>
             <input ng-show="home.email == '' " ng-model="email" />
+            <button type="button" class="btn btn-default navbar-btn" ng-click=home.setEmail(email)>{{ home.logged }}</button>
         </p>
     </div>
 </nav>
 
-
 <br>
 <br>
 <br>
 <br>
 
-<input ng-model="task" />
-<button type="submit" class="btn btn-success" ng-click=home.addTask(task)>Dodaj zadanie</button>
+<div ng-show="home.logged == 'Wyloguj' ">
+    <input ng-model="task" />
+    <button type="submit" class="btn btn-success" ng-click=home.addTask(task)>Dodaj zadanie</button>
+</div>
 
 <br>
 <br>
@@ -27,7 +28,7 @@
 <div style="display: table;">
     <div style="display: table-cell; width:500px;" align='left'>
         <ul>
-            <p>To do <span class="badge">4</span></p>
+            <p>To do <span class="badge">{{ (home.tasks | filter : { done : false }).length }}</span></p>
             <div class="well" ng-repeat="task in home.tasks | filter:home.filter | filter: { done : false }">
                 <h3>{{ task.name }}</h3>
                 <p>{{ task.mail }}</p>
@@ -47,7 +48,7 @@
 
     <div style="display: table-cell; width:500px;" align='left'>
         <ul>
-            <p>Done <span class="badge">4</span></p>
+            <p>Done <span class="badge">{{ (home.tasks | filter : { done : true }).length }}</span></p>
             <div class="well" ng-repeat="task in home.tasks | filter:home.filter | filter: { done : true }">
                 <h3>{{ task.name }}</h3>
                 <p>{{ task.mail }}</p>
