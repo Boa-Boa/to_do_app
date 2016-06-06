@@ -1,13 +1,10 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
-        <p><a class="navbar-brand">To do app</a></p>
-        <ul class="nav navbar-nav">
-            <button type="button" class="btn btn-primary" ng-click="home.filterTasks('all')">Zadania</button>
-            <button type="button" class="btn btn-success" ng-click="home.filterTasks('mine')">Moje zadania</button>
-        </ul>
+        <p><a class="navbar-brand">To Do App - Lista rzeczy do zrobienia</a></p>
         <p class="navbar-text navbar-right">
+            <a ng-show="home.email != '' " class="navbar-brand navbar-center">Zalgowany jako {{ home.email }}</a>
             <input ng-show="home.email == '' " ng-model="email" />
-            <button type="button" class="btn btn-default navbar-btn" ng-click=home.setEmail(email)>{{ home.logged }}</button>
+            <button type="button" class="btn btn-default btn-info" ng-click=home.setEmail(email)>{{ home.logged }}</button>
         </p>
     </div>
 </nav>
@@ -18,8 +15,21 @@
 <br>
 
 <div ng-show="home.logged == 'Wyloguj' ">
-    <input ng-model="task" />
-    <button type="submit" class="btn btn-success" ng-click=home.addTask(task)>Dodaj zadanie</button>
+    <!--<input size="50" ng-model="task" />-->
+    <div class="input-group">
+        <span class="input-group-addon" id="basic-addon3">Nazwa zadania:</span>
+        <input size="50" ng-model="task" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+    </div>
+    <button type="submit" class="btn btn-danger" ng-click=home.addTask(task)>Dodaj zadanie</button>
+    <br>
+    <br>
+</div>
+
+<div>
+    <ul class="nav navbar-nav">
+        <button type="button" class="btn btn-primary" ng-click="home.filterTasks('all')">Zadania</button>
+        <button type="button" class="btn btn-success" ng-click="home.filterTasks('mine')">Moje zadania</button>
+    </ul>
 </div>
 
 <br>
@@ -28,13 +38,13 @@
 <div style="display: table;">
     <div style="display: table-cell; width:500px;" align='left'>
         <ul>
-            <p>To do <span class="badge">{{ (home.tasks | filter : { done : false }).length }}</span></p>
+            <p>Do zrobienia <span class="badge">{{ (home.tasks | filter : { done : false }).length }}</span></p>
             <div class="well" ng-repeat="task in home.tasks | filter:home.filter | filter: { done : false }">
                 <h3>{{ task.name }}</h3>
                 <p>{{ task.mail }}</p>
                 <div>
                     <span class="pull-right">
-                        <button class="btn btn-danger btn-xs" ng-click="home.removeTask(task)">
+                        <button ng-show="home.logged == 'Wyloguj' && home.email == task.mail" class="btn btn-danger btn-xs" ng-click="home.removeTask(task)">
                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     </button>
                     <button class="btn btn-success btn-xs" ng-click="home.setStatus(task, 'done')">
@@ -48,13 +58,13 @@
 
     <div style="display: table-cell; width:500px;" align='left'>
         <ul>
-            <p>Done <span class="badge">{{ (home.tasks | filter : { done : true }).length }}</span></p>
+            <p>Gotowe <span class="badge">{{ (home.tasks | filter : { done : true }).length }}</span></p>
             <div class="well" ng-repeat="task in home.tasks | filter:home.filter | filter: { done : true }">
                 <h3>{{ task.name }}</h3>
                 <p>{{ task.mail }}</p>
                 <div>
                     <span class="pull-right">
-                        <button class="btn btn-danger btn-xs" ng-click="home.removeTask(task)">
+                        <button ng-show="home.logged == 'Wyloguj' && home.email == task.mail" class="btn btn-danger btn-xs" ng-click="home.removeTask(task)">
                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     </button>
                     <button class="btn btn-warning btn-xs" ng-click="home.setStatus(task, 'todo')">
