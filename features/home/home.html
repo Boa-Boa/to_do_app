@@ -33,8 +33,17 @@
 </div>
 
 <br>
-<br>
 
+
+
+
+<br>
+<br>
+<div class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:{{ ((home.tasks | filter : {done : true}).length)/(home.tasks.length)*100 }}%">
+        <span class="sr-only">70% Complete</span>
+    </div>
+</div>
 <div style="display: table;">
     <div style="display: table-cell; width:500px;" align='left'>
         <ul>
